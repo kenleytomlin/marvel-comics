@@ -1,0 +1,7 @@
+.bundle
+log/*
+tmp/*
+README.md
+docker-compose.yml
+.DS_Store
+docker/*

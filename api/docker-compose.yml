@@ -1,0 +1,24 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'supersecretpassword'
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql:rw
+  api:
+    build: .
+    command: bundle exec rails s -p 8080 -b '0.0.0.0'
+    volumes:
+      - .:/usr/app
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    depends_on:
+      - db
+    environment:
+      DATABASE_PASSWORD: 'supersecretpassword'
+      RAILS_ENV: 'development'
+    env_file:
+      - ./.env

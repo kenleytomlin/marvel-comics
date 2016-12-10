@@ -1,0 +1,34 @@
+import {
+  COMIC_INDEX_FETCH_REQUEST,
+  COMIC_INDEX_FETCH_SUCCESS,
+  COMIC_INDEX_FETCH_FAILURE,
+  COMIC_VOTED_FETCH_REQUEST,
+  COMIC_VOTED_FETCH_SUCCESS,
+  COMIC_VOTED_FETCH_FAILURE,
+  COMIC_INDEX_UPVOTE_REQUEST,
+  COMIC_INDEX_UPVOTE_SUCCESS,
+  COMIC_INDEX_UPVOTE_FAILURE,
+  COMIC_INDEX_DOWNVOTE_REQUEST,
+  COMIC_INDEX_DOWNVOTE_SUCCESS,
+  COMIC_INDEX_DOWNVOTE_FAILURE
+} from '../../constants/comic'
+import { createActions } from 'redux-actions'
+import { receiveAll } from '../../schemas/comic'
+
+const actions = createActions({
+  COMIC_INDEX_FETCH_REQUEST: (params) => { return { method: 'get', pathname: '/v1/comics', params } },
+  COMIC_INDEX_FETCH_SUCCESS: (response) => { return receiveAll(response) },
+  COMIC_VOTED_FETCH_REQUEST: () => { return { pathname: '/v1/comics/votes' } },
+  COMIC_VOTED_FETCH_SUCCESS: (response) => { return response.results }
+},
+COMIC_INDEX_FETCH_FAILURE,
+COMIC_INDEX_UPVOTE_REQUEST,
+COMIC_INDEX_UPVOTE_SUCCESS,
+COMIC_INDEX_UPVOTE_FAILURE,
+COMIC_INDEX_DOWNVOTE_REQUEST,
+COMIC_INDEX_DOWNVOTE_SUCCESS,
+COMIC_INDEX_DOWNVOTE_FAILURE,
+COMIC_VOTED_FETCH_FAILURE
+)
+
+export default actions
