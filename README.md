@@ -25,7 +25,7 @@ docker-compose run bundle exec rake db:setup
 Then connect the frontend container to the api_default network
 ```sh
 docker network connect api_default frontend_front_end_1
-``
+```
 
 Visit localhost:3000 in your browser to view the app.
 
