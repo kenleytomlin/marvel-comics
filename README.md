@@ -1,40 +1,48 @@
 # Streetbees Full Stack Engineer (Ruby) position
 
-[Role description](https://github.com/Streetbees/full-stack-engineer-ruby/wiki/Role-description)
+##Instructions
 
-[Requirements](https://github.com/Streetbees/full-stack-engineer-ruby/wiki/Requirements)
+The two apps run inside docker containers.
 
-[Benefits](https://github.com/Streetbees/full-stack-engineer-ruby/wiki/Benefits)
+In one terminal
+```sh
+cd api
+docker-compose up
+```
 
+In a second terminal
+```sh
+cd frontend
+docker-compose up
+```
 
-### To apply you shoud follow the instructions below:
+You will have to run the below command to create the database schema
+```sh
+cd api
+docker-compose run bundle exec rake db:setup
+```
 
-- Fork this repo;
-- Look at the specification below and do your thing;
-- When ready open a pull into the master branch of this repo;
-- We will then review the code and if necessary discuss within the pull request.
+Then connect the frontend container to the api_default network
+```sh
+docker network connect api_default frontend_front_end_1
+``
 
-### Challenge spec:
+Visit localhost:3000 in your browser to view the app.
 
-- Description:
-    - Using the best API available on this side of the universe, https://developer.marvel.com/ , make a simple app that allows the user to scroll trough all the comics ever released from the most recent to the oldest (and please, let me see the cover picture while I do it!);
-    - Make it easy to search amongs the comics;
-    - Let me upvote my favorite comics.
+You can search by character in the search box, selecting a character
+will return comics that feature that character. You can paginate
+throught the results with the next and previous buttons.
 
-- Functional requirements (Using the Job to be Done framework):
-    - When I open the page I want to see a list of all Marvel’s released comic books covers ordered from most recent to the oldest so I can scroll trough the the Marvel universe;
-    - When I see the list of comics I want to be able to search by character (ex. deadpool) so that I can find my favorite comics;
-    - When I see the list of comics I want to be able to upvote any of them so that the most popular are easy to find in the future.
+##Running specs for front end
+```sh
+docker-compose run --rm front_end npm run test
+```
+##Running specs for api
+```sh
+docker-compose run --rm api bundle exec rake spec
+```
 
-- Technical requirements
-    - Developed using mainly Ruby and Javascript.
-    - Implement the design that is present inside the assets folder (HTML + CSS)
+##A request
 
-- Evaluation Criteria
-    - you create maintainable code;
-    - you care about the user experience ;
-    - you pay attention to details;
-    - you develop in a scalable manner.
+I'd love your feedback on my effort!
 
-- Deliverables
-    - The forked version of this repo.
