@@ -1,6 +1,6 @@
-# Streetbees Full Stack Engineer (Ruby) position
+# Marvel comics
 
-##Instructions
+## Instructions
 
 The two apps run inside docker containers.
 
@@ -33,16 +33,12 @@ You can search by character in the search box, selecting a character
 will return comics that feature that character. You can paginate
 throught the results with the next and previous buttons.
 
-##Running specs for front end
+## Running specs for front end
 ```sh
 docker-compose run --rm front_end npm run test
 ```
-##Running specs for api
+## Running specs for api
 ```sh
 docker-compose run --rm api bundle exec rake spec
 ```
-
-##A request
-
-I'd love your feedback on my effort!
 
