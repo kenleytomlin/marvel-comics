@@ -3,9 +3,6 @@ require 'rails_helper'
 describe Comic::Index do
   before :each do
     stub_const('API_CLIENT', instance_double(Marvel::Api).as_null_object)
-  end
-
-  before :each do
     allow(API_CLIENT).to receive(:search_comics).with(
       characters: 1, page: 0,
     ).and_return(
