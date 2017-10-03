@@ -63,7 +63,7 @@ if(process.env.NODE_ENV === 'development') {
   const proxy = httpProxy.createProxyServer({
     target: `http://${process.env.API_HOST}:${process.env.API_PORT}/v1/`
   }).on('error',(err,req,res) => {
-    console.log(error)
+    console.log(err)
   })
 
   app.use('/v1/',(req,res) => {
