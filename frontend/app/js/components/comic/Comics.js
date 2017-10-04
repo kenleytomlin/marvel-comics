@@ -1,25 +1,38 @@
 import React from 'react'
 import ComicContainer from '../../containers/comic/ComicContainer'
 import PaginationContainer from '../../containers/comic/PaginationContainer'
+import {
+  Row,
+  Col
+} from '../style/responsive'
+import {
+  Container
+} from '../style/layout'
 
 const Comics = ({ ids, isFetching }) => {
   return(
-    <div className='comics-container'>
+    <Container
+      xs={{ top: 'md', bottom: 'md' }}
+      sm={{ top: 'lg', bottom: 'lg' }}
+    >
       {
-        ids.map( (chunk,i)  => {
-          return(<div key={`comics-chunk-${i}`} className='comic-row'>
-            { chunk.map( (id,i) => {
-              return(<ComicContainer key={`comics-${id}`} id={id} />)
-              })
-            }
-          </div>)
-        })
+        ids.map((chunk,i) => (
+            <Row key={`comics-chunk-${i}`}>
+              {
+                chunk.map((id,i) => (
+                  <ComicContainer key={`comics-${id}`} id={id} />
+                  )
+                )
+              }
+            </Row>
+          )
+        )
       }
       { isFetching ? <div className='loader-overlay'><div className='loader'/> </div>: undefined }
-      <div className='comic-row'>
+      <Row xs={{ justifySpaceBetween: true }}>
         <PaginationContainer />
-      </div>
-    </div>
+      </Row>
+    </Container>
   )
 }
 

@@ -1,15 +1,25 @@
 import React from 'react'
+import {
+  Col,
+  Row
+} from '../style/responsive'
+import {
+  PreviousButton,
+  NextButton
+} from './style'
 
 const Pagination = ({ currentPage, isLast, next, previous }) => {
   return(
-    <div className='comic-pagination-container'>
-      <div className='comic-pagination-btn-container previous'>
-        { currentPage > 0 ? <button className='comic-previous-btn' onClick={previous} > Previous Page </button>: undefined }
-      </div>
-      <div className='comic-pagination-btn-container next'>
-        { isLast === false ? <button className='comic-next-btn' onClick={next} > Next Page </button> : undefined }
-      </div>
-    </div>
+    <Col xs={12} >
+      <Row >
+        <Col xs={6} >
+          { currentPage > 0 ? <PreviousButton onClick={previous} > Previous Page </PreviousButton>: undefined }
+        </Col>
+        <Col xs={6}>
+          { isLast === false ? <NextButton onClick={next} > Next Page </NextButton> : undefined }
+        </Col>
+      </Row>
+    </Col>
   )
 }
 
