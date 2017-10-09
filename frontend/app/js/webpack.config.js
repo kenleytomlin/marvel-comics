@@ -1,9 +1,6 @@
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const fs = require('fs')
 const path = require('path')
-const babelrc = fs.readFileSync('./.babelrc')
-const _ = require('lodash')
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
@@ -28,13 +25,6 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
-    },
-    {
-      test: /\.scss$/,
-      loader: 'style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap&sourceComments'
-    },{
-      test: /\.css$/,
-      loader: 'style-loader!css-loader!'
     },
     {
       test: /\.(jpe?g|png|ico)$/,

@@ -6,6 +6,10 @@ import {
   Col
 } from '../style/responsive'
 import {
+  LoaderOverlay,
+  Loader
+} from '../style/loader'
+import {
   Container
 } from '../style/layout'
 
@@ -28,7 +32,7 @@ const Comics = ({ ids, isFetching }) => {
           )
         )
       }
-      { isFetching ? <div className='loader-overlay'><div className='loader'/> </div>: undefined }
+      { isFetching ? <LoaderOverlay><Loader /> </LoaderOverlay>: undefined }
       <Row xs={{ justifySpaceBetween: true }}>
         <PaginationContainer />
       </Row>

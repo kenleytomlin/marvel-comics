@@ -21,10 +21,10 @@ const Characters = ({ ids, isFetching }) => {
     )
   } else if(isFetching) {
     return(
-      <div className='loading-overlay' />
+      null
     )
   } else {
-    return null;
+    return null
   }
 }
 
