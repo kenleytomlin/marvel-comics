@@ -1,7 +1,7 @@
 import process from 'process'
 import { isArray } from 'lodash'
 import { put, call } from 'redux-saga/effects'
-import { takeLatest } from 'redux-saga'
+import { takeEvery } from 'redux-saga'
 import axios from 'axios'
 
 export const request = function* (actions,action) {
@@ -22,7 +22,7 @@ const simpleApiCall = (REQUEST_TYPE,actions) => {
     throw new Error('Bad arguments passed to simpleApiCall saga, you must pass a type to listen for and the actions to call on success and failure')
   } else {
     return function* saga() {
-      yield takeLatest(REQUEST_TYPE,request,actions)
+      yield takeEvery(REQUEST_TYPE,request,actions)
     }
   }
 }
