@@ -1,6 +1,6 @@
-import { normalize, arrayOf, Schema } from 'normalizr'
+import { normalize, schema } from 'normalizr'
 
-const character = new Schema('character')
+const character = new schema.Entity('character')
 
-export const receiveAll = (response) => normalize(response,{ results: arrayOf(character) })
+export const receiveAll = (response) => normalize(response,{ results: [character] })
 

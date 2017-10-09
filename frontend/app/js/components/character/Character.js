@@ -1,15 +1,20 @@
 import React from 'react'
+import {
+  CharacterContainer,
+  CharacterThumbnail,
+  CharacterNameContainer
+} from './style'
 
 const Character = ({ id, name, thumbnail, onClick }) => {
   return (
-    <div onClick={onClick} className='character-container'>
-      <div className='character-thumbnail-container'>
-        <img className='character-thumbnail' src={thumbnail} />
+    <CharacterContainer onClick={onClick} >
+      <div>
+        <CharacterThumbnail src={thumbnail} />
       </div>
-      <div className='character-name-container'>
+      <CharacterNameContainer>
         { name }
-      </div>
-    </div>
+      </CharacterNameContainer>
+    </CharacterContainer>
   )
 }
 

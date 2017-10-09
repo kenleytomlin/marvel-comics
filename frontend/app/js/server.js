@@ -2,7 +2,9 @@ import 'babel-polyfill'
 import http from 'http'
 import Express from 'express'
 import React from 'react'
-import ReactDom, { renderToString } from 'react-dom/server'
+import path from 'path'
+import { ServerStyleSheet } from 'styled-components'
+import { renderToString } from 'react-dom/server'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './store/configureStore'
@@ -27,7 +29,9 @@ const handleRender = (req,res,next) => {
     }
     if(renderProps) {
       loadOnServer({ ...renderProps, store }).then(() => {
-        const html = renderToString(<Provider store={store} key='provider'><ReduxAsyncConnect {...renderProps }/></Provider>)
+        const sheet = new ServerStyleSheet()
+        const html = renderToString(sheet.collectStyles(<Provider store={store} key='provider'><ReduxAsyncConnect {...renderProps }/></Provider>))
+        const css = sheet.getStyleTags()
         const state = store.getState()
 
         res.status(200).send(`
@@ -36,14 +40,15 @@ const handleRender = (req,res,next) => {
             <head>
               <meta name="viewport" content="width=device-width, initial-scale=1">
               <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en,Intl.~locale.ko,Intl.~locale.ja,Intl.~locale.zh"></script>
+              ${css}
             </head>
             <body>
               <script>
                 window.__INITIAL_STATE__ = ${JSON.stringify(state)}
               </script>
               <div id="root">${html}</div>
-              <script src="public/js/vendor.js" ></script>
-              <script src="public/js/app.js" async></script>
+              <script src="public/js/vendor.js" defer ></script>
+              <script src="public/js/app.js" defer></script>
             </body>
           </html>`)
       }).catch((err) => { console.log(err); res.send(500) })
@@ -52,11 +57,13 @@ const handleRender = (req,res,next) => {
 }
 
 app.use(/\/$/,handleRender)
+app.use('/assets',Express.static(path.join(__dirname,'../assets')))
 
 if(process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
   const webpackConfig = require('./webpack.config.js')
   const compiler = webpack(webpackConfig)
+
   app.use(require('webpack-dev-middleware')(compiler,{ hot: true, publicPath: webpackConfig.output.publicPath }))
   app.use(require('webpack-hot-middleware')(compiler))
 
