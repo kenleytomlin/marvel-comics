@@ -1,24 +1,30 @@
 import React from 'react'
 import Empty from './Empty'
 import CharacterContainer from '../../containers/character/CharacterContainer'
+import {
+  CharactersOuter,
+  CharactersInner
+} from './style'
 
 const Characters = ({ ids, isFetching }) => {
   if(ids.length > 0 && !isFetching) {
     return(
-      <div className='characters-container'>
-        {
-          ids.map(id => {
-            return(<CharacterContainer key={`character-${id}`} id={id} />)
-          })
-        }
-      </div>
+      <CharactersOuter>
+        <CharactersInner>
+          {
+            ids.map(id => {
+              return(<CharacterContainer key={`character-${id}`} id={id} />)
+            })
+          }
+        </CharactersInner>
+      </CharactersOuter>
     )
   } else if(isFetching) {
     return(
-      <div className='loading-overlay' />
+      null
     )
   } else {
-    return null;
+    return null
   }
 }
 

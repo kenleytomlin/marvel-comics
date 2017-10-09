@@ -1,13 +1,11 @@
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const fs = require('fs')
-const babelrc = fs.readFileSync('./.babelrc');
-const _ = require('lodash')
+const path = require('path')
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
   entry: {
-    app: ['react-hot-loader/patch','webpack-hot-middleware/client?reload=true&path=/__webpack_hmr&timeout=20000','./app/js/client.js'],
+    app: ['react-hot-loader/patch','webpack-hot-middleware/client?reload=true&path=/__webpack_hmr&timeout=20000','./app/js/index.js'],
     vendor: [
       'react',
       'react-dom',
@@ -26,18 +24,7 @@ module.exports = {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
-      options: {
-        presets: ["stage-0","latest","react"],
-        plugins: ["transform-decorators-legacy","transform-class-properties","transform-runtime","transform-es2015-classes","transform-object-rest-spread","react-hot-loader/babel"]
-      },
-    },
-    {
-      test: /\.scss$/,
-      loader: 'style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap&sourceComments'
-    },{
-      test: /\.css$/,
-      loader: 'style-loader!css-loader!'
+      loader: 'babel-loader'
     },
     {
       test: /\.(jpe?g|png|ico)$/,
@@ -57,7 +44,15 @@ module.exports = {
       }
     ]),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+  resolve: {
+    alias: {
+      'components': path.join(__dirname, 'js/components'),
+      'containers': path.join(__dirname, 'js/containers'),
+      'styles': path.join(__dirname, 'js/components/style'),
+      'reducers': path.join(__dirname, 'js/reducers')
+    }
+  }
 }
 
