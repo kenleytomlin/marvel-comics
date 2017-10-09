@@ -1,5 +1,8 @@
 import Comic from '../../../components/comic/Comic'
 import UpvoteContainer from '../../../containers/comic/UpvoteContainer'
+import {
+  ComicCoverThumbnail
+} from '../../../components/comic/style'
 
 const setup = () => {
   const props = {
@@ -22,7 +25,7 @@ describe('components', () => {
     it('renders an image tag with the correct props', () => {
       const { output, props } = setup()
 
-      expect(output.find('img').props().src).toEqual(props.thumbnail)
+      expect(output.find(ComicCoverThumbnail).props().src).toEqual(props.thumbnail)
     })
 
     it('renders the UpvoteContainer with the correct props', () => {

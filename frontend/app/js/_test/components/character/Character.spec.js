@@ -1,4 +1,7 @@
 import Character from '../../../components/character/Character'
+import {
+  CharacterContainer
+} from '../../../components/character/style'
 
 const setup = () => {
   const props = {
@@ -20,7 +23,7 @@ describe('components', () => {
     it('calls onClick when clicked', () => {
       const { output, props } = setup()
 
-      output.find('.character-container').simulate('click')
+      output.find(CharacterContainer).simulate('click')
 
       expect(props.onClick).toHaveBeenCalled()
     })

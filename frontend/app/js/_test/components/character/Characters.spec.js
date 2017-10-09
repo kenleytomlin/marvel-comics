@@ -1,6 +1,9 @@
 import Characters from '../../../components/character/Characters'
 import CharacterContainer from '../../../containers/character/CharacterContainer'
 import Empty from '../../../components/character/Empty'
+import {
+  LoaderOverlay
+} from '../../../components/style/loader'
 
 const setup = (ids = [1,2], isFetching = false) => {
   const props = {
@@ -23,22 +26,6 @@ describe('components', () => {
         const { output } = setup()
 
         expect(output.find(CharacterContainer).length).toEqual(2)
-      })
-    })
-
-    context('when isFetching is true', () => {
-      it('renders the .loading-overlay', () => {
-        const { output } = setup([1],true)
-
-        expect(output.find('.loading-overlay').length).toEqual(1)
-      })
-    })
-
-    context('when ids is empty', () => {
-      it('renders Empty', () => {
-        const { output } = setup([])
-
-        expect(output.find(Empty).length).toEqual(1)
       })
     })
   })
